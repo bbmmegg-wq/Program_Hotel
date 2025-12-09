@@ -15,7 +15,7 @@ public class Program_Hotel {
 		
 		DateTimeFormatter sdf= DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
-		
+		Reservation reservation = null;
 		
 		System.out.printf("Room number: ");
 		int roomNumber= sc.nextInt();
@@ -24,34 +24,38 @@ public class Program_Hotel {
 		System.out.printf("Check-out Date (dd/MM/yyyy): ");
 		LocalDate checkout= LocalDate.parse(sc.next(), sdf);
 		
-		Reservation reservation= new Reservation(roomNumber, checkin, checkout);
-		
-		
-		System.out.println(reservation);
-		System.out.println();
-		
-		System.out.println("Enter data to update reservation: ");
-		
-		System.out.printf("Check-in Date (dd/MM/yyyy): ");
-		LocalDate checkin1= LocalDate.parse(sc.next(), sdf);
-		System.out.printf("Check-out Date (dd/MM/yyyy): ");
-		LocalDate checkout1= LocalDate.parse(sc.next(), sdf);
-		
-		LocalDate now=  LocalDate.now();
-		
-		
-		
-		if( ! checkin.isAfter(now) || !checkout1.isAfter(now)) {
-			
-			System.out.println("Revervation dates for uptade must be future dates ");
-		}
-		else if ( !checkout.isAfter(checkin1)) {
+		if ( !checkout.isAfter(checkin)) {
 			System.out.println("Error in reservation: Ckeck-out date must be after check-in date ");
+		
+		
 		}
 		else {
-			reservation.updateDates(checkin1, checkout1);
+			reservation= new Reservation(roomNumber, checkin, checkout);
 			System.out.println(reservation);
+			System.out.println();
+			
+			System.out.println("Enter data to update reservation: ");
+			
+			System.out.printf("Check-in Date (dd/MM/yyyy): ");
+			LocalDate checkin1= LocalDate.parse(sc.next(), sdf);
+			System.out.printf("Check-out Date (dd/MM/yyyy): ");
+			LocalDate checkout1= LocalDate.parse(sc.next(), sdf);
+			
+			LocalDate now=  LocalDate.now();
+			
+			String updateReservation =reservation.updateDates(checkin1, checkout1, now);
+			
+			if (updateReservation != null) {
+				
+				System.out.println(updateReservation);
+				
+			}
+			else {
+				System.out.println(reservation);
+			}
 		}
+		
+		
 		
 		
 		
