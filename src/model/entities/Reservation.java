@@ -75,18 +75,18 @@ public class Reservation {
 	}
 	
 	
-	public void updateDates(LocalDate checkin1, LocalDate checkout1,LocalDate now) {
+	public void updateDates(LocalDate checkin, LocalDate checkout,LocalDate now) {
 		
-		if( ! checkin1.isAfter(now) || !checkout1.isAfter(now)) {
+		if( ! checkin.isAfter(now) || !checkout.isAfter(now)) {
 			
 			throw new DomainExceptions ("Error in reservation: Revervation dates for uptade must be future dates ");
 		}
-		else if ( !checkout1.isAfter(checkin1)) {
+		else if ( !checkout.isAfter(checkin)) {
 			 throw new DomainExceptions ("Error in reservation: Ckeck-out date must be after check-in date ");
 		}
 		else {
-		this.checkin = checkin1;
-		this.checkout = checkout1;
+		this.checkin = checkin;
+		this.checkout = checkout;
 		
 		
 		
