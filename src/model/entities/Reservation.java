@@ -1,9 +1,11 @@
 package model.entities;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+
+import model.exceptions.DomainExceptions;
+
 
 
 public class Reservation {
@@ -23,7 +25,10 @@ public class Reservation {
 
 
 	public Reservation(Integer roomNumber, LocalDate checkin, LocalDate checkout) {
-		super();
+		if ( !checkout.isAfter(checkin)) {
+			throw new DomainExceptions ("Error in reservation: Ckeck-out date must be after check-in date ");
+		
+		}
 		this.roomNumber = roomNumber;
 		this.checkin = checkin;
 		this.checkout = checkout;
@@ -70,20 +75,20 @@ public class Reservation {
 	}
 	
 	
-	public String updateDates(LocalDate checkin1, LocalDate checkout1,LocalDate now) {
+	public void updateDates(LocalDate checkin1, LocalDate checkout1,LocalDate now) {
 		
 		if( ! checkin1.isAfter(now) || !checkout1.isAfter(now)) {
 			
-			return"Revervation dates for uptade must be future dates ";
+			throw new DomainExceptions ("Error in reservation: Revervation dates for uptade must be future dates ");
 		}
 		else if ( !checkout1.isAfter(checkin1)) {
-			return "Error in reservation: Ckeck-out date must be after check-in date ";
+			 throw new DomainExceptions ("Error in reservation: Ckeck-out date must be after check-in date ");
 		}
 		else {
 		this.checkin = checkin1;
 		this.checkout = checkout1;
 		
-		return null;
+		
 		
 		}
 		
